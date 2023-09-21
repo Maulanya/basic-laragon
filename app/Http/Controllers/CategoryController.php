@@ -9,7 +9,17 @@ class CategoryController extends Controller
 {
     public function index() {
         $data = Category::all();
-        dd($data);
+        return view('category.index')->with('data', $data);
     }
-    //
+    public function create() {
+        return view('category.create');
+    }
+
+    public function store(Request $request) {
+$request->validate([
+    'name' => 'required'    
+]);
+Category::create($request->all());
+return to_route('category.index');
+    }
 }
